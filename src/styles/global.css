@@ -87,6 +87,57 @@ a {
   color: inherit;
 }
 
+/* ---------- Ilustraciones recortadas (collage) ----------
+   Comparten la misma reacción al ratón: giran, crecen y sueltan
+   una copia rosa desplazada, como un registro mal impreso. */
+.illu {
+  --illu-rot: 0deg;
+  --illu-hover-rot: -4deg;
+  transform: rotate(var(--illu-rot));
+  filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.9));
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.28s ease;
+}
+
+.illu img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.illu:hover,
+.illu:focus-within {
+  transform: rotate(var(--illu-hover-rot)) scale(1.12);
+  filter:
+    drop-shadow(-6px 2px 0 var(--pink))
+    drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.85));
+}
+
+/* Anton solo trae un peso: pedir negrita hace que el navegador la engorde
+   de forma sintética y los títulos pierden filo. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.title,
+.band-name,
+.poster-headline,
+.btn,
+.tix,
+.city,
+.booking-mail,
+.link-text strong,
+.show-date .d {
+  font-weight: 400;
+}
+
+.cutout {
+  font-weight: 400;
+}
+
 img,
 svg {
   max-width: 100%;
@@ -185,7 +236,8 @@ section {
     animation: none !important;
   }
   .show,
-  .link {
+  .link,
+  .illu {
     transition: none !important;
   }
   .glitch:hover::before,

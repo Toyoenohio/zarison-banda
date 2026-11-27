@@ -13,6 +13,7 @@ export const icons = {
   youtube: `<svg ${stroke}><rect x="2.8" y="5.8" width="18.4" height="12.6" rx="3.5"/><path d="M10 9.4v5.2l4.6-2.6z" fill="currentColor" stroke="none"/></svg>`,
   instagram: `<svg ${stroke}><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>`,
   tiktok: `<svg ${stroke}><path d="M14.5 4c.4 2.6 2 4.1 4.4 4.3M14.5 4v9.6a3.75 3.75 0 1 1-3.75-3.75"/></svg>`,
+  playlist: `<svg ${stroke}><path d="M4 6.5h12M4 12h12M4 17.5h8"/><path d="M18.5 10.5v8.2a1.9 1.9 0 1 1-1.9-1.9"/></svg>`,
   bag: `<svg ${stroke}><path d="M6 8h12l-1.1 12H7.1L6 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>`,
   mail: `<svg ${stroke}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>`,
   ticket: `<svg ${stroke}><path d="M4 8a2.2 2.2 0 0 1 0 8v3h16v-3a2.2 2.2 0 0 1 0-8V5H4v3z"/><path d="M14 5.5v13" stroke-dasharray="2 2.4"/></svg>`,

@@ -2,10 +2,20 @@
 import { site } from '../data/site';
 
 const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL;
 ---
 
 <footer>
-  <p>© {year} {site.name} — TODOS LOS DERECHOS RESERVADOS. “{site.album}”.</p>
+  <p class="legal">© {year} {site.name} — TODOS LOS DERECHOS RESERVADOS.</p>
+  <img
+    class="signature"
+    src={`${base}firma-sobrenombre.svg`}
+    alt={`Firma de ${site.name}`}
+    width="252"
+    height="19"
+    loading="lazy"
+    decoding="async"
+  />
 </footer>
 
 <style>
@@ -16,6 +26,17 @@ const year = new Date().getFullYear();
     letter-spacing: 0.12em;
     text-align: center;
     text-transform: uppercase;
+  }
+
+  .legal {
     opacity: 0.6;
+  }
+
+  .signature {
+    display: block;
+    width: min(212px, 60vw);
+    height: auto;
+    margin: 14px auto 0;
+    opacity: 0.85;
   }
 </style>

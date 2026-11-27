@@ -16,7 +16,6 @@ export interface SiteConfig {
   bookingLabel: string;
   /** Línea pequeña sobre el nombre del hero */
   badge: string;
-  sticker: string;
   album: string;
   tagline: string;
   albumTagline: string;
@@ -50,14 +49,13 @@ export const site: SiteConfig = {
   metaLeft: 'NUEVO ROCK CHILENO ★ TOUR 2027 (ENSAYANDO)',
   bookingLabel: 'BOOKING / ONE-SHEET',
   badge: 'NUEVO ÁLBUM DISPONIBLE · SANTIAGO',
-  sticker: 'NUEVO DISCO “PARTIR DE ZERO”',
   album: 'PARTIR DE ZERO',
 
   tagline:
     'Rock Alternativo Made in Chile. Partir de Zero Disponible en todas las plataformas.',
 
   albumTagline: 'UN DISCO ATÍPICO EN UNA ERA ATÍPICA',
-  email: 'booking@zarisonband.com',
+  email: 'zarisonband@gmail.com',
 
   ctaPrimary: { label: 'ESCUCHAR PARTIR DE ZERO', url: 'https://spotify.com' },
   ctaSecondary: { label: 'VER FECHAS', url: '#gira' },

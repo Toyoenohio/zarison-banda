@@ -23,7 +23,7 @@ const base = import.meta.env.BASE_URL;
 
   <div class="poster-area">
     <RansomHeadline />
-    <div class="eye" aria-hidden="true">
+    <div class="eye illu" aria-hidden="true">
       <img
         class="eye-frame"
         src={`${base}eye-frame.webp`}
@@ -36,8 +36,6 @@ const base = import.meta.env.BASE_URL;
   </div>
 
   <p class="tagline">{site.tagline}</p>
-
-  <p class="sticker">{site.sticker}</p>
 
   <div class="hero-ctas">
     <a class="btn btn--pink" href={site.ctaPrimary.url} target="_blank" rel="noopener">
@@ -110,27 +108,6 @@ const base = import.meta.env.BASE_URL;
     color: var(--pink);
   }
 
-  /* Pegatina rotada con vaivén */
-  .sticker {
-    position: absolute;
-    top: 128px;
-    right: 4.5%;
-    z-index: 2;
-    max-width: 145px;
-    padding: 8px 12px;
-    background: var(--pink);
-    color: var(--ink);
-    border: 2px solid var(--ink);
-    box-shadow: 4px 4px 0 var(--paper);
-    font-family: var(--font-type);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transform: rotate(8deg);
-    animation: wobble 5.5s ease-in-out infinite;
-  }
-
   /* Cinta de papel con el aviso del álbum, encima del logotipo */
   .band-badge {
     position: relative;
@@ -160,36 +137,14 @@ const base = import.meta.env.BASE_URL;
   }
 
   .eye {
+    --illu-rot: 9deg;
+    --illu-hover-rot: 2deg;
     position: absolute;
     z-index: 3;
-    top: -66px;
-    right: -6px;
-    width: 104px;
-    transform: rotate(9deg);
+    top: -74px;
+    right: -26px;
+    width: 118px;
     pointer-events: auto;
-  }
-
-  .eye-frame {
-    display: block;
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.9));
-    transition:
-      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
-      filter 0.28s ease;
-  }
-
-  .eye:hover .eye-frame {
-    transform: rotate(-7deg) scale(1.14);
-    filter:
-      drop-shadow(-6px 2px 0 var(--pink))
-      drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.85));
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .eye-frame {
-      transition: none;
-    }
   }
 
   .band-name {
@@ -361,12 +316,4 @@ const base = import.meta.env.BASE_URL;
     }
   }
 
-  @media (max-width: 560px) {
-    /* La pegatina pasa al flujo, debajo de los CTA, para no taparlos */
-    .sticker {
-      position: static;
-      display: inline-block;
-      margin-top: 18px;
-    }
-  }
 </style>

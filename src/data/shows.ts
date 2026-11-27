@@ -4,58 +4,59 @@ export interface Show {
   city: string;
   venue: string;
   note?: string;
-  /** URL de venta, `null` si todavía no hay entradas */
-  tickets?: string | null;
-  soldOut?: boolean;
-  free?: boolean;
+  /** Estado que se pinta a la derecha: "PRONTO", "AGOTADO*", "ENTRADAS ¿?"… */
+  status: string;
+  /** Pinta el estado como sello rotado en vez de texto plano */
+  stamp?: boolean;
 }
 
 /**
  * Fechas de la gira. Las que ya pasaron se ocultan solas
  * (en el build y también al cargar la página).
+ * Ninguna tiene venta de entradas todavía: el estado lo dice el texto.
  */
 export const shows: Show[] = [
   {
-    date: '2026-10-18',
-    city: 'MADRID',
-    venue: 'Sala La Riviera',
-    note: 'Presentación oficial del álbum',
-    tickets: 'https://entradas.ejemplo.com',
+    date: '2027-01-23',
+    city: 'SANTIAGO',
+    venue: 'Sala SCD Bellavista',
+    note: 'El escenario es real. La fecha todavía la estamos analizando en la sala de ensayo',
+    status: 'PRÓXIMAMENTE',
   },
   {
-    date: '2026-10-24',
-    city: 'BARCELONA',
-    venue: 'Razzmatazz 2',
-    note: '+ Fiesta Afterparty Oficial',
-    tickets: 'https://entradas.ejemplo.com',
+    date: '2027-03-04',
+    city: 'SANTIAGO',
+    venue: 'La Puerta Amarilla',
+    note: 'Rock, cerveza y probablemente alguien pidiendo “una de Los Bunkers”.',
+    status: 'ENTRADAS ¿?',
   },
   {
-    date: '2026-11-07',
-    city: 'VALENCIA',
-    venue: 'Sala Moon',
-    note: 'Aforo completo',
-    tickets: '#',
-    soldOut: true,
+    date: '2027-04-10',
+    city: 'SANTIAGO',
+    venue: 'Bar de Mala Muerte',
+    note: 'Quién no estuvo ahí. Quién sabe dónde queda.',
+    status: 'AFORO: 37 + 1 PERRO',
   },
   {
-    date: '2026-11-21',
-    city: 'BILBAO',
-    venue: 'Kafe Antzokia',
-    note: 'Apertura de puertas 21:00 h',
-    tickets: 'https://entradas.ejemplo.com',
+    date: '2027-05-12',
+    city: 'SANTIAGO',
+    venue: 'Bar de René',
+    note: 'Volumen innecesariamente alto desde una distancia innecesariamente corta.',
+    status: 'PRONTO',
   },
   {
-    date: '2026-12-05',
-    city: 'SEVILLA',
-    venue: 'Sala Custom',
-    note: 'Festival Invierno Noise',
-    tickets: 'https://entradas.ejemplo.com',
+    date: '2027-06-03',
+    city: 'VALPARAÍSO',
+    venue: 'Centro Cultural El Último Piso',
+    note: 'No existe todavía. Pero el nombre está bueno.',
+    status: 'POR CONFIRMAR',
   },
   {
-    date: '2026-12-19',
-    city: 'ZARAGOZA',
-    venue: 'Sala López',
-    note: 'Próximamente más detalles',
-    tickets: null,
+    date: '2027-07-03',
+    city: 'SANTIAGO',
+    venue: 'Patio de la Casa del Javi (Batero)',
+    note: 'Dirección por interno. Vecinos sin confirmar.',
+    status: 'AGOTADO*',
+    stamp: true,
   },
 ];

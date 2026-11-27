@@ -13,7 +13,7 @@ const titleHtml =
 
 <section id="bio" aria-labelledby="bio-titulo">
   <div class="bio-inner">
-    <div class="hand" aria-hidden="true">
+    <div class="hand illu" aria-hidden="true">
       <img src={`${base}${bio.hand}`} alt="" width="260" height="760" loading="lazy" decoding="async" />
     </div>
 
@@ -43,19 +43,13 @@ const titleHtml =
 
   /* La mano se pega al borde izquierdo de la columna, como en el cartel */
   .hand {
+    --illu-rot: -8deg;
+    --illu-hover-rot: -2deg;
     display: none;
     position: absolute;
     right: calc(100% + 6px);
     top: 52px;
     width: 140px;
-    transform: rotate(-8deg);
-    filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 0.85));
-    pointer-events: none;
-  }
-
-  .hand img {
-    width: 100%;
-    height: auto;
   }
 
   .card {

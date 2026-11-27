@@ -2,21 +2,50 @@
 import { links } from '../data/links';
 import FlyerLink from './FlyerLink.astro';
 import SectionHeading from './SectionHeading.astro';
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <section id="enlaces" aria-labelledby="enlaces-titulo">
-  <SectionHeading
-    id="enlaces-titulo"
-    index="02"
-    label="ESCUCHA Y SÍGUENOS (SI QUERÍ)"
-    title={'ESCUCHA ZARISON' + '\n' + 'EN TODAS LAS PLATAFORMAS'}
-  />
-  <div class="links">
-    {links.map((link, i) => <FlyerLink {...link} tilt={i % 2 === 0 ? -0.6 : 0.7} />)}
+  <div class="enlaces-inner">
+    <div class="illu glass" aria-hidden="true">
+      <img src={`${base}stickers/hl-5.webp`} alt="" width="360" height="908" loading="lazy" decoding="async" />
+    </div>
+
+    <SectionHeading
+      id="enlaces-titulo"
+      index="02"
+      label="ESCUCHA Y SÍGUENOS (SI QUERÍ)"
+      title={'ESCUCHA ZARISON' + '\n' + 'EN TODAS LAS PLATAFORMAS'}
+    />
+    <div class="links">
+      {links.map((link, i) => <FlyerLink {...link} tilt={i % 2 === 0 ? -0.6 : 0.7} />)}
+    </div>
   </div>
 </section>
 
 <style>
+  .enlaces-inner {
+    position: relative;
+  }
+
+  /* Copa en alto a la derecha de los flyers */
+  .glass {
+    --illu-rot: 5deg;
+    --illu-hover-rot: 0deg;
+    display: none;
+    position: absolute;
+    left: calc(100% + 46px);
+    top: 68px;
+    width: 132px;
+  }
+
+  @media (min-width: 1024px) {
+    .glass {
+      display: block;
+    }
+  }
+
   .links {
     display: flex;
     flex-direction: column;

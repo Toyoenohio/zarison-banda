@@ -9,23 +9,20 @@ const socialProfiles = links
 
 /** Datos estructurados schema.org del hub (grupo musical + fechas). */
 export function buildJsonLd(siteUrl: string) {
-  const ics = shows
-    .filter((show) => !show.soldOut)
-    .map((show) => ({
-      '@type': 'MusicEvent',
-      name: `${site.name} en ${show.city}`,
-      startDate: show.date,
-      eventStatus: 'https://schema.org/EventScheduled',
-      location: {
-        '@type': 'MusicVenue',
-        name: show.venue,
-        address: { '@type': 'PostalAddress', addressLocality: show.city },
-      },
-      performer: { '@type': 'MusicGroup', name: site.name },
-      ...(show.tickets && show.tickets.startsWith('http')
-        ? { offers: { '@type': 'Offer', url: show.tickets, availability: 'https://schema.org/InStock' } }
-        : {}),
-    }));
+  const ics = shows.map((show) => ({
+    '@type': 'MusicEvent',
+    name: `${site.name} en ${show.city}`,
+    startDate: show.date,
+    eventStatus: show.stamp
+      ? 'https://schema.org/EventSoldOut'
+      : 'https://schema.org/EventScheduled',
+    location: {
+      '@type': 'MusicVenue',
+      name: show.venue,
+      address: { '@type': 'PostalAddress', addressLocality: show.city },
+    },
+    performer: { '@type': 'MusicGroup', name: site.name },
+  }));
 
   return {
     '@context': 'https://schema.org',

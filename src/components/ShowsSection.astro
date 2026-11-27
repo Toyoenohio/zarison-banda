@@ -5,10 +5,16 @@ import SectionHeading from './SectionHeading.astro';
 import ShowTicket from './ShowTicket.astro';
 
 const upcoming = upcomingShows(shows);
+const base = import.meta.env.BASE_URL;
 ---
 
 <section id="gira" aria-labelledby="gira-titulo">
-  <SectionHeading id="gira-titulo" index="03" label="EN VIVO / GIRA" title="PRÓXIMOS CONCIERTOS" />
+  <div class="gira-inner">
+    <div class="illu ball" aria-hidden="true">
+      <img src={`${base}stickers/hl-6.webp`} alt="" width="380" height="602" loading="lazy" decoding="async" />
+    </div>
+
+    <SectionHeading id="gira-titulo" index="03" label="EN VIVO / GIRA" title="PRÓXIMOS CONCIERTOS (?)" />
 
   {
     upcoming.length > 0 && (
@@ -20,10 +26,11 @@ const upcoming = upcomingShows(shows);
     )
   }
 
-  <p class="no-shows" data-shows-empty hidden={upcoming.length > 0}>
-    No hay más fechas anunciadas por el momento.<br />
-    Nuevas fechas de la gira saldrán pronto.
-  </p>
+    <p class="no-shows" data-shows-empty hidden={upcoming.length > 0}>
+      No hay más fechas anunciadas por el momento.<br />
+      Nuevas fechas de la gira saldrán pronto.
+    </p>
+  </div>
 </section>
 
 <script>
@@ -55,6 +62,27 @@ const upcoming = upcomingShows(shows);
 </script>
 
 <style>
+  .gira-inner {
+    position: relative;
+  }
+
+  /* Bola de espejos colgando a la izquierda de la lista */
+  .ball {
+    --illu-rot: -5deg;
+    --illu-hover-rot: -1deg;
+    display: none;
+    position: absolute;
+    right: calc(100% + 14px);
+    top: 30px;
+    width: 150px;
+  }
+
+  @media (min-width: 1024px) {
+    .ball {
+      display: block;
+    }
+  }
+
   .shows {
     display: flex;
     flex-direction: column;

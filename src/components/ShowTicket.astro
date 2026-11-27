@@ -11,7 +11,6 @@ interface Props {
 const { show, isNext = false } = Astro.props;
 const { month, day, weekday } = formatDateParts(show.date);
 
-const hasTickets = Boolean(show.tickets && show.tickets !== '#');
 ---
 
 <article class="show" data-show-date={show.date}>
@@ -30,16 +29,10 @@ const hasTickets = Boolean(show.tickets && show.tickets !== '#');
 
   <div class="show-cta">
     {
-      show.soldOut ? (
-        <span class="stamp">AGOTADO</span>
-      ) : show.free ? (
-        <span class="stamp free">ENTRADA LIBRE</span>
-      ) : hasTickets ? (
-        <a class="tix" href={show.tickets!} target="_blank" rel="noopener noreferrer">
-          ENTRADAS ↗<span class="sr-only"> (se abre en una pestaña nueva)</span>
-        </a>
+      show.stamp ? (
+        <span class="stamp">{show.status}</span>
       ) : (
-        <span class="soon">PRONTO</span>
+        <span class="soon">{show.status}</span>
       )
     }
     <div class="barcode" aria-hidden="true"></div>
@@ -170,29 +163,6 @@ const hasTickets = Boolean(show.tickets && show.tickets !== '#');
     padding: 12px 16px;
   }
 
-  .tix {
-    padding: 9px 15px;
-    background: var(--pink);
-    color: var(--ink);
-    border: 2px solid var(--ink);
-    box-shadow: 2px 2px 0 var(--ink);
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition:
-      transform 0.12s ease,
-      background 0.12s ease;
-  }
-
-  .tix:hover,
-  .tix:focus-visible {
-    background: var(--paper);
-    color: var(--ink);
-    transform: translate(-1px, -1px);
-  }
-
   .stamp {
     padding: 3px 8px;
     color: var(--pink);
@@ -206,16 +176,13 @@ const hasTickets = Boolean(show.tickets && show.tickets !== '#');
     transform: rotate(-8deg);
   }
 
-  .stamp.free {
-    color: var(--ink);
-    background: transparent;
-    border-color: var(--ink);
-  }
-
   .soon {
+    max-width: 152px;
     font-family: var(--font-type);
     font-size: 0.72rem;
+    line-height: 1.35;
     letter-spacing: 0.1em;
+    text-align: center;
     text-transform: uppercase;
     opacity: 0.6;
   }
@@ -233,18 +200,33 @@ const hasTickets = Boolean(show.tickets && show.tickets !== '#');
     );
   }
 
-  @media (max-width: 480px) {
+  /* En móvil el estado pasa a una franja inferior: si va en la misma fila
+     se come el ancho del recinto y de la nota. */
+  @media (max-width: 620px) {
     .show {
-      grid-template-columns: 74px 1fr auto;
+      grid-template-columns: 74px 1fr;
     }
+
     .show-date .d {
       font-size: 1.75rem;
     }
+
     .city {
       font-size: 1.1rem;
     }
-    .barcode {
-      display: none;
+
+    .show-cta {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border-top: 2px dashed rgba(14, 13, 12, 0.25);
+    }
+
+    .soon {
+      max-width: none;
+      text-align: left;
     }
   }
 </style>
