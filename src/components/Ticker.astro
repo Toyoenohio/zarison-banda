@@ -1,44 +1,80 @@
 ---
 import { site } from '../data/site';
 
-/** La pista se duplica para que el bucle sea continuo. */
+/**
+ * La pista se duplica para que el bucle sea continuo.
+ * El bloque es decorativo (aria-hidden): repetiría los avisos dos veces.
+ */
 const items = [...site.ticker, ...site.ticker];
 ---
 
 <div class="ticker-wrap" aria-hidden="true">
   <div class="ticker">
     <div class="ticker-track">
-      {items.map((item) => <><span>{item}</span><span>★</span></>)}
+      {items.map((item) => <span class="ticker-item">{item}<i>★</i></span>)}
     </div>
   </div>
 </div>
 
 <style>
+  /*
+   * La huincha va rotada: necesita más alto que su propia altura para que
+   * las esquinas no queden recortadas por el overflow del contenedor.
+   */
   .ticker-wrap {
     overflow: hidden;
-    padding: 12px 0 6px;
+    padding: 22px 0;
+    margin: -6px 0;
   }
 
   .ticker {
-    margin: 0 -25px;
-    padding: 10px 0;
+    position: relative;
+    z-index: 1;
+    width: 104%;
+    margin-left: -2%;
+    padding: 9px 0;
     background: var(--pink);
     color: var(--ink);
-    border-top: 3px solid var(--ink);
-    border-bottom: 3px solid var(--ink);
-    transform: rotate(-1.5deg);
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.55);
+    transform: rotate(-1.1deg);
     overflow: hidden;
   }
 
   .ticker-track {
-    display: inline-flex;
-    gap: 2.2rem;
-    white-space: nowrap;
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    animation: ticker 22s linear infinite;
+    display: flex;
+    width: max-content;
+    animation: ticker 46s linear infinite;
     will-change: transform;
+  }
+
+  .ticker:hover .ticker-track {
+    animation-play-state: paused;
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 16px;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .ticker-item i {
+    font-style: normal;
+    font-size: 0.8rem;
+    opacity: 0.9;
+  }
+
+  @media (min-width: 900px) {
+    .ticker-item {
+      font-size: 0.95rem;
+    }
   }
 </style>

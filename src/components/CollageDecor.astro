@@ -1,25 +1,21 @@
 ---
 /**
- * Recortes de collage del cartel: ojo de semitono y copa de champán.
- * Solo decorativos (aria-hidden) y sin capturar clics.
+ * Recortes de collage del cartel: ojo de semitono (imagen) y copa de champán.
+ * Solo decorativos (aria-hidden); el ojo reacciona al pasar el ratón.
  */
+const base = import.meta.env.BASE_URL;
 ---
 
-<svg class="decor eye" viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false">
-  <defs>
-    <pattern id="halftone-eye" width="6" height="6" patternUnits="userSpaceOnUse">
-      <circle cx="3" cy="3" r="1.8" fill="#11100f" />
-    </pattern>
-  </defs>
-  <polygon points="10,14 88,6 94,80 18,92" fill="#f4ede2" stroke="#11100f" stroke-width="2" />
-  <ellipse cx="52" cy="48" rx="34" ry="24" fill="url(#halftone-eye)" stroke="#11100f" stroke-width="2.5" />
-  <circle cx="52" cy="48" r="14" fill="#11100f" />
-  <circle cx="48" cy="44" r="4.5" fill="#f4ede2" />
-  <g transform="translate(62, 10) rotate(12)">
-    <rect width="26" height="24" rx="3" fill="#11100f" />
-    <text x="5" y="17" fill="#f4ede2" font-family="'Anton', sans-serif" font-size="14">31</text>
-  </g>
-</svg>
+<div class="decor eye" aria-hidden="true">
+  <img
+    class="eye-frame"
+    src={`${base}eye-frame.webp`}
+    alt=""
+    width="360"
+    height="327"
+    decoding="async"
+  />
+</div>
 
 <svg class="decor glass" viewBox="0 0 110 160" fill="none" aria-hidden="true" focusable="false">
   <defs>
@@ -46,13 +42,43 @@
   }
 
   .eye {
-    top: 25px;
-    right: 4%;
-    width: 86px;
-    height: 86px;
-    transform: rotate(11deg);
+    top: 16px;
+    right: 2.5%;
+    width: 96px;
+    transform: rotate(9deg);
+    opacity: 0.9;
+    /* Solo el ojo captura el ratón, y únicamente en escritorio:
+       en móvil se queda decorativo para no tapar la pegatina. */
+    pointer-events: none;
+  }
+
+  .eye-frame {
+    display: block;
+    width: 100%;
+    height: auto;
     filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.9));
-    opacity: 0.85;
+    transition:
+      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+      filter 0.28s ease;
+  }
+
+  @media (min-width: 601px) {
+    .eye {
+      pointer-events: auto;
+    }
+
+    .eye:hover .eye-frame {
+      transform: rotate(-7deg) scale(1.14);
+      filter:
+        drop-shadow(-6px 2px 0 var(--pink))
+        drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.85));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eye-frame {
+      transition: none;
+    }
   }
 
   .glass {
@@ -66,11 +92,9 @@
   }
 
   @media (max-width: 600px) {
+    /* En móvil el ojo taparía la cabecera: se oculta (es decorativo) */
     .eye {
-      width: 65px;
-      height: 65px;
-      right: 2%;
-      top: 38px;
+      display: none;
     }
     .glass {
       width: 85px;

@@ -13,11 +13,16 @@ export interface SiteConfig {
   title: string;
   description: string;
   metaLeft: string;
+  bookingLabel: string;
   sticker: string;
   album: string;
   tagline: string;
   albumTagline: string;
   email: string;
+  /** Botones grandes del hero */
+  ctaPrimary: { label: string; url: string };
+  ctaSecondary: { label: string; url: string };
+  instagram: { handle: string; url: string };
   ticker: string[];
   headline: { lines: HeadlineToken[][] };
 }
@@ -32,22 +37,31 @@ export const site: SiteConfig = {
   description:
     'Enlaces oficiales, música, preventas y fechas de gira de ZARISON. Nuevo álbum: “Partir de Zero”.',
 
-  metaLeft: 'ROCK DE GARAJE ★ TOUR 2026-2027',
+  metaLeft: 'NUEVO ROCK CHILENO ★ TOUR 2027 (ENSAYANDO)',
+  bookingLabel: 'BOOKING / ONE-SHEET',
   sticker: 'NUEVO DISCO “PARTIR DE ZERO”',
   album: 'PARTIR DE ZERO',
 
   tagline:
-    'Rock crudo y sin filtros. “Partir de Zero” ya disponible en todas las plataformas.',
+    'Rock Alternativo Made in Chile. Partir de Zero Disponible en todas las plataformas.',
 
   albumTagline: 'UN DISCO ATÍPICO EN UNA ERA ATÍPICA',
   email: 'booking@zarisonband.com',
 
+  ctaPrimary: { label: 'ESCUCHAR PARTIR DE ZERO', url: 'https://spotify.com' },
+  ctaSecondary: { label: 'VER FECHAS', url: '#gira' },
+  instagram: { handle: '@zarisonband', url: 'https://instagram.com/zarisonband' },
+
+  /* La estrella separadora la añade el componente Ticker. */
   ticker: [
-    'NUEVO ÁLBUM “PARTIR DE ZERO” YA DISPONIBLE',
-    'UN DISCO ATÍPICO EN UNA ERA ATÍPICA',
-    'GIRA 2026 // ENTRADAS A LA VENTA',
-    'VINILO EDICIÓN ROSA LIMITADO',
-    'MÁS VOLUMEN, MENOS POSTUREO',
+    'ZARISON // ROCK ALTERNATIVO CHILENO',
+    'MÚSICOS, SÍ. CREADORES DE CONTENIDO, NO',
+    'NO NACIMOS PARA EL ALGORITMO',
+    'GIRA 2027 // MÁS INFO PRONTO (OJALÁ)',
+    'MÚSICA ANTIPOÉTICA. SIN FÓRMULAS. CON GANAS',
+    'EL MUNDO ES UN CAOS TOTAL. A RATOS, AUDIBLE',
+    'SI NO TE GUSTA EL REGGAETÓN NI EL TRAP, ESTE ES TU LUGAR',
+    'LA VIDA ES MUY CORTA PARA SABER QUÉ MÁS PONER AQUÍ',
   ],
 
   /**

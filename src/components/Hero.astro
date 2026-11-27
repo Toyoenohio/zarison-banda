@@ -9,10 +9,8 @@ import RansomHeadline from './RansomHeadline.astro';
 
   <div class="hero-top">
     <span>{site.metaLeft}</span>
-    <a href={`mailto:${site.email}`}>BOOKING ↗</a>
+    <a href={`mailto:${site.email}`}>{site.bookingLabel}</a>
   </div>
-
-  <p class="sticker">{site.sticker}</p>
 
   <span class="band-badge">{site.name}</span>
 
@@ -24,6 +22,28 @@ import RansomHeadline from './RansomHeadline.astro';
   <RansomHeadline />
 
   <p class="tagline">{site.tagline}</p>
+
+  <p class="sticker">{site.sticker}</p>
+
+  <div class="hero-ctas">
+    <a class="btn btn--pink" href={site.ctaPrimary.url} target="_blank" rel="noopener">
+      {site.ctaPrimary.label}
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M8 5v14l11-7z" fill="currentColor" />
+      </svg>
+    </a>
+    <a class="btn btn--ghost" href={site.ctaSecondary.url}>
+      {site.ctaSecondary.label}
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+
+  <p class="hero-social">
+    O stalkea a Zarison en
+    <a href={site.instagram.url} target="_blank" rel="noopener">
+      {site.instagram.handle}<span class="sr-only"> (se abre en una pestaña nueva)</span>
+    </a>
+  </p>
 </header>
 
 <style>
@@ -79,8 +99,8 @@ import RansomHeadline from './RansomHeadline.astro';
   /* Pegatina rotada con vaivén */
   .sticker {
     position: absolute;
-    top: 12%;
-    right: 4%;
+    top: 128px;
+    right: 4.5%;
     z-index: 2;
     max-width: 145px;
     padding: 8px 12px;
@@ -160,18 +180,122 @@ import RansomHeadline from './RansomHeadline.astro';
     opacity: 0.8;
   }
 
-  @media (max-width: 480px) {
+  /* Botones del hero: mismo lenguaje que los flyers (borde duro + sombra sólida) */
+  .hero-ctas {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border: 2px solid var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      transform 0.12s ease,
+      box-shadow 0.12s ease,
+      background-color 0.12s ease,
+      color 0.12s ease;
+  }
+
+  .btn svg {
+    width: 15px;
+    height: 15px;
+    flex: none;
+  }
+
+  .btn--pink {
+    background: var(--pink);
+    color: var(--ink);
+    box-shadow: 5px 5px 0 var(--paper);
+  }
+
+  .btn--pink:hover,
+  .btn--pink:focus-visible {
+    background: var(--paper);
+    box-shadow: 2px 2px 0 var(--pink);
+    transform: translate(3px, 3px);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--paper);
+    border-color: var(--paper);
+    box-shadow: 5px 5px 0 var(--pink);
+  }
+
+  .btn--ghost:hover,
+  .btn--ghost:focus-visible {
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 2px 2px 0 var(--pink);
+    transform: translate(3px, 3px);
+  }
+
+  .hero-social {
+    position: relative;
+    z-index: 1;
+    margin-top: 14px;
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #948a80;
+  }
+
+  .hero-social a {
+    color: var(--paper);
+    text-decoration: underline;
+    text-decoration-color: var(--pink);
+    text-underline-offset: 3px;
+  }
+
+  .hero-social a:hover {
+    color: var(--pink);
+  }
+
+  @media (max-width: 520px) {
+    .hero-ctas {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-ctas .btn {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    /* Cabecera en dos líneas centradas: los dos textos no caben en una sola */
     .hero-top {
-      font-size: 0.68rem;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.66rem;
       letter-spacing: 0.1em;
     }
   }
 
   @media (max-width: 560px) {
+    /* La pegatina pasa al flujo, debajo de los CTA, para no taparlos */
     .sticker {
-      top: auto;
-      bottom: -8px;
-      right: 6%;
+      position: static;
+      display: inline-block;
+      margin-top: 18px;
     }
   }
 </style>
