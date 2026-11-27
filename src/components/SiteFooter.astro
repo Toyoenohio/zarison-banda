@@ -1,0 +1,21 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <p>© {year} {site.name} — TODOS LOS DERECHOS RESERVADOS. “{site.album}”.</p>
+</footer>
+
+<style>
+  footer {
+    padding: 45px 20px 32px;
+    font-family: var(--font-type);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-align: center;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+</style>

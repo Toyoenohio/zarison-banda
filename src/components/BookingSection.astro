@@ -1,0 +1,49 @@
+---
+import { site } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section aria-labelledby="booking-titulo">
+  <div class="booking">
+    <SectionHeading
+      id="booking-titulo"
+      index="03"
+      label="CONTRATACIÓN & PRENSA"
+      title="¿QUIERES A ZARISON EN TU SALA?"
+      center
+    />
+    <a class="booking-mail" href={`mailto:${site.email}`}>{site.email} ↗</a>
+  </div>
+</section>
+
+<style>
+  .booking {
+    position: relative;
+    margin-top: 24px;
+    padding: 38px 20px;
+    background: rgba(255, 0, 90, 0.03);
+    border: 3px dashed rgba(255, 0, 90, 0.5);
+    text-align: center;
+  }
+
+  .booking-mail {
+    display: inline-block;
+    margin-top: 14px;
+    padding-bottom: 2px;
+    color: var(--paper);
+    border-bottom: 3px solid var(--pink);
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 4.5vw, 1.55rem);
+    text-transform: uppercase;
+    text-decoration: none;
+    word-break: break-all;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .booking-mail:hover,
+  .booking-mail:focus-visible {
+    color: var(--pink);
+  }
+</style>

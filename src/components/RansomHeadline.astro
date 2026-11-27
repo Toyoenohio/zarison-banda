@@ -1,0 +1,89 @@
+---
+import { site } from '../data/site';
+import type { HeadlineToken } from '../data/site';
+
+const { lines } = site.headline;
+
+const isCutout = (token: HeadlineToken): token is Extract<HeadlineToken, { cutout: string }> =>
+  'cutout' in token;
+---
+
+<div class="poster-card">
+  <div class="poster-headline">
+    {
+      lines.map((line) => (
+        <div>
+          {line.map((token) =>
+            isCutout(token) ? (
+              <span class="cutout" style={`--rot:${token.rot}deg`}>
+                {token.cutout}
+              </span>
+            ) : (
+              token.text
+            )
+          )}
+        </div>
+      ))
+    }
+  </div>
+  <p class="album-subtext">{site.album} — NUEVO ÁLBUM</p>
+</div>
+
+<style>
+  .poster-card {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 12px auto 14px;
+    padding: 18px 14px;
+    background: #121110;
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--pink);
+    transform: rotate(-0.5deg);
+  }
+
+  /* Trozo de cinta adhesiva arriba */
+  .poster-card::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    width: 90px;
+    height: 22px;
+    transform: translateX(-50%) rotate(2deg);
+    background: var(--tape);
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+  }
+
+  .poster-headline {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 5.5vw, 2.1rem);
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+
+  .cutout {
+    display: inline-block;
+    padding: 0 7px;
+    margin: 0 2px;
+    background: var(--pink);
+    color: var(--ink);
+    font-weight: 900;
+    box-shadow: 2px 3px 0 var(--ink);
+    transform: rotate(var(--rot, -2deg));
+  }
+
+  .album-subtext {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed rgba(244, 237, 226, 0.3);
+    font-family: var(--font-type);
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+</style>

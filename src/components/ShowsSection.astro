@@ -1,0 +1,72 @@
+---
+import { shows } from '../data/shows';
+import { upcomingShows } from '../lib/dates';
+import SectionHeading from './SectionHeading.astro';
+import ShowTicket from './ShowTicket.astro';
+
+const upcoming = upcomingShows(shows);
+---
+
+<section id="gira" aria-labelledby="gira-titulo">
+  <SectionHeading id="gira-titulo" index="02" label="EN VIVO / GIRA" title="PRÓXIMOS CONCIERTOS" />
+
+  {
+    upcoming.length > 0 && (
+      <div class="shows">
+        {upcoming.map((show, i) => (
+          <ShowTicket show={show} isNext={i === 0} />
+        ))}
+      </div>
+    )
+  }
+
+  <p class="no-shows" data-shows-empty hidden={upcoming.length > 0}>
+    No hay más fechas anunciadas por el momento.<br />
+    Nuevas fechas de la gira saldrán pronto.
+  </p>
+</section>
+
+<script>
+  /**
+   * Las fechas se filtran en el build, pero el sitio puede estar publicado
+   * semanas sin recompilarse: aquí se ocultan las que ya pasaron y el sello
+   * de "próximo bolo" se mueve a la primera fecha visible.
+   */
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const tickets = Array.from(document.querySelectorAll<HTMLElement>('[data-show-date]'));
+  let firstVisible: HTMLElement | null = null;
+
+  for (const ticket of tickets) {
+    const [year, month, day] = (ticket.dataset.showDate ?? '').split('-').map(Number);
+    const isPast = !year || new Date(year, month - 1, day) < today;
+    ticket.hidden = isPast;
+    if (!isPast && !firstVisible) firstVisible = ticket;
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-next-tag]').forEach((tag) => {
+    tag.hidden = true;
+  });
+  firstVisible?.querySelector<HTMLElement>('[data-next-tag]')?.removeAttribute('hidden');
+
+  const empty = document.querySelector<HTMLElement>('[data-shows-empty]');
+  if (empty) empty.hidden = Boolean(firstVisible);
+</script>
+
+<style>
+  .shows {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .no-shows {
+    padding: 28px;
+    border: 2px dashed rgba(244, 237, 226, 0.3);
+    font-family: var(--font-type);
+    font-size: 0.85rem;
+    text-align: center;
+    opacity: 0.85;
+  }
+</style>

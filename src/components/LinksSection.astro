@@ -1,0 +1,20 @@
+---
+import { links } from '../data/links';
+import FlyerLink from './FlyerLink.astro';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section id="enlaces" aria-labelledby="enlaces-titulo">
+  <SectionHeading id="enlaces-titulo" index="01" label="ESCUCHAR & SEGUIR" title="DALE AL PLAY" />
+  <div class="links">
+    {links.map((link, i) => <FlyerLink {...link} tilt={i % 2 === 0 ? -0.6 : 0.7} />)}
+  </div>
+</section>
+
+<style>
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+</style>

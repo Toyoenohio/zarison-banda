@@ -1,0 +1,24 @@
+{
+  "name": "zarison-banda",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Hub oficial de enlaces y gira de ZARISON — proyecto Astro modular",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@fontsource/anton": "^5.3.0",
+    "@fontsource/special-elite": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "astro": "^7.4.13"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.5",
+    "typescript": "^5.9.3"
+  }
+}

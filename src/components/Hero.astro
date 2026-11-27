@@ -1,0 +1,177 @@
+---
+import { site } from '../data/site';
+import CollageDecor from './CollageDecor.astro';
+import RansomHeadline from './RansomHeadline.astro';
+---
+
+<header class="hero">
+  <CollageDecor />
+
+  <div class="hero-top">
+    <span>{site.metaLeft}</span>
+    <a href={`mailto:${site.email}`}>BOOKING ↗</a>
+  </div>
+
+  <p class="sticker">{site.sticker}</p>
+
+  <span class="band-badge">{site.name}</span>
+
+  <h1 class="band-name" aria-label={site.name}>
+    <span class="glitch line-1" data-text={site.nameLine1}>{site.nameLine1}</span>
+    <span class="glitch line-2" data-text={site.nameLine2}>{site.nameLine2}</span>
+  </h1>
+
+  <RansomHeadline />
+
+  <p class="tagline">{site.tagline}</p>
+</header>
+
+<style>
+  .hero {
+    position: relative;
+    padding: 24px 20px 50px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* Resplandor rosa de escenario */
+  .hero::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    width: 80vw;
+    height: 80vw;
+    max-width: 580px;
+    max-height: 580px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(255, 0, 90, 0.24), rgba(255, 0, 90, 0.05) 45%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-top {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    max-width: 640px;
+    margin: 0 auto 30px;
+    font-family: var(--font-type);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .hero-top a {
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px dashed var(--pink);
+    padding-bottom: 2px;
+    transition: color 0.2s ease;
+  }
+
+  .hero-top a:hover {
+    color: var(--pink);
+  }
+
+  /* Pegatina rotada con vaivén */
+  .sticker {
+    position: absolute;
+    top: 12%;
+    right: 4%;
+    z-index: 2;
+    max-width: 145px;
+    padding: 8px 12px;
+    background: var(--pink);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--paper);
+    font-family: var(--font-type);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transform: rotate(8deg);
+    animation: wobble 5.5s ease-in-out infinite;
+  }
+
+  .band-badge {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin-bottom: 4px;
+    font-family: var(--font-type);
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  .band-name {
+    position: relative;
+    z-index: 1;
+    margin: 4px 0 16px;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 20vw, 8.8rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  .band-name span {
+    display: block;
+    position: relative;
+  }
+
+  .band-name .line-2 {
+    color: transparent;
+    -webkit-text-stroke: 2.5px var(--pink);
+  }
+
+  /* Capas de glitch al pasar el ratón */
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .glitch:hover::before {
+    opacity: 1;
+    color: var(--pink);
+    -webkit-text-stroke: 0;
+    animation: glitch-a 0.35s steps(2, end) infinite;
+  }
+
+  .glitch:hover::after {
+    opacity: 1;
+    color: var(--paper);
+    -webkit-text-stroke: 0;
+    animation: glitch-b 0.35s steps(2, end) infinite;
+  }
+
+  .tagline {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 480px) {
+    .hero-top {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .sticker {
+      top: auto;
+      bottom: -8px;
+      right: 6%;
+    }
+  }
+</style>

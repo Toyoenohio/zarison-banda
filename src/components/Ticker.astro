@@ -1,0 +1,44 @@
+---
+import { site } from '../data/site';
+
+/** La pista se duplica para que el bucle sea continuo. */
+const items = [...site.ticker, ...site.ticker];
+---
+
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker">
+    <div class="ticker-track">
+      {items.map((item) => <><span>{item}</span><span>★</span></>)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .ticker-wrap {
+    overflow: hidden;
+    padding: 12px 0 6px;
+  }
+
+  .ticker {
+    margin: 0 -25px;
+    padding: 10px 0;
+    background: var(--pink);
+    color: var(--ink);
+    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    transform: rotate(-1.5deg);
+    overflow: hidden;
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    gap: 2.2rem;
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    animation: ticker 22s linear infinite;
+    will-change: transform;
+  }
+</style>

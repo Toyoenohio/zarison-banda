@@ -1,0 +1,69 @@
+---
+interface Props {
+  /** Número de sección: "01", "02"… */
+  index: string;
+  /** Etiqueta corta tras el número */
+  label: string;
+  /** Título grande */
+  title: string;
+  /** Centra el bloque (usado en booking) */
+  center?: boolean;
+  /** Nivel del encabezado; h2 por defecto */
+  level?: 'h2' | 'h3';
+  /** id del encabezado, para aria-labelledby de la sección */
+  id?: string;
+}
+
+const { index, label, title, center = false, level = 'h2', id } = Astro.props;
+const Heading = level;
+---
+
+<div class:list={['heading', { center }]}>
+  <p class="label">// {index} — {label}</p>
+  <Heading class="title" id={id}>{title}</Heading>
+</div>
+
+<style>
+  .heading {
+    margin-bottom: 22px;
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-family: var(--font-type);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+
+  .label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 0, 90, 0.4);
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 7.5vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .center .label {
+    justify-content: center;
+  }
+
+  .center .label::after {
+    display: none;
+  }
+</style>

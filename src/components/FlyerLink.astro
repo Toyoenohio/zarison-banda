@@ -1,0 +1,112 @@
+---
+import Icon from './Icon.astro';
+import type { IconName } from '../lib/icons';
+
+interface Props {
+  label: string;
+  sub?: string;
+  url: string;
+  icon: IconName;
+  featured?: boolean;
+  /** Inclinación en grados del flyer */
+  tilt?: number;
+}
+
+const { label, sub, url, icon, featured = false, tilt = 0 } = Astro.props;
+
+const external = /^https?:\/\//.test(url);
+const newTab = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<a
+  class:list={['link', { featured }]}
+  href={url}
+  style={`--tilt:${tilt}deg`}
+  {...newTab}
+>
+  <Icon name={icon} />
+  <span class="link-text">
+    <strong>{label}</strong>
+    {sub && <small>{sub}</small>}
+    {external && <span class="sr-only"> (se abre en una pestaña nueva)</span>}
+  </span>
+  <span class="arrow" aria-hidden="true"><Icon name="link" /></span>
+  {featured && <span class="pulse" aria-hidden="true" />}
+</a>
+
+<style>
+  .link {
+    position: relative;
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 18px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--pink);
+    text-decoration: none;
+    transform: rotate(var(--tilt, 0deg));
+    transition:
+      transform 0.14s ease,
+      box-shadow 0.14s ease;
+  }
+
+  .link:hover,
+  .link:focus-visible {
+    transform: translate(3px, 3px) rotate(0deg);
+    box-shadow: 2px 2px 0 var(--pink);
+  }
+
+  .link-text strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .link-text small {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    opacity: 0.75;
+  }
+
+  .arrow {
+    display: inline-flex;
+    transition: transform 0.15s ease;
+  }
+
+  .link:hover .arrow {
+    transform: translate(3px, -3px);
+  }
+
+  /* Flyer destacado: rosa sobre papel */
+  .featured {
+    background: var(--pink);
+    box-shadow: 7px 7px 0 var(--paper);
+  }
+
+  .featured:hover,
+  .featured:focus-visible {
+    box-shadow: 2px 2px 0 var(--paper);
+  }
+
+  .pulse {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--ink);
+    animation: pulse-dot 1.3s ease-in-out infinite;
+  }
+
+  @media (max-width: 480px) {
+    .link-text strong {
+      font-size: 1rem;
+    }
+  }
+</style>

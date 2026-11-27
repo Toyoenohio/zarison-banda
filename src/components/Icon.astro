@@ -1,0 +1,33 @@
+---
+import { getIcon, type IconName } from '../lib/icons';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 24, class: className } = Astro.props;
+---
+
+<span
+  class:list={['icon', className]}
+  style={`--icon-size:${size}px`}
+  set:html={getIcon(name)}
+  aria-hidden="true"
+/>
+
+<style>
+  .icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: var(--icon-size, 24px);
+    height: var(--icon-size, 24px);
+  }
+
+  .icon :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
