@@ -4,8 +4,10 @@ interface Props {
   index: string;
   /** Etiqueta corta tras el número */
   label: string;
-  /** Título grande */
+  /** Título grande; un salto de línea en el texto se pinta como <br> */
   title: string;
+  /** Título con marcado (letras recortadas); tiene prioridad sobre `title` */
+  titleHtml?: string;
   /** Centra el bloque (usado en booking) */
   center?: boolean;
   /** Nivel del encabezado; h2 por defecto */
@@ -14,13 +16,27 @@ interface Props {
   id?: string;
 }
 
-const { index, label, title, center = false, level = 'h2', id } = Astro.props;
+const { index, label, title, titleHtml, center = false, level = 'h2', id } = Astro.props;
 const Heading = level;
+const lines = title.split('\n');
 ---
 
 <div class:list={['heading', { center }]}>
   <p class="label">// {index} — {label}</p>
-  <Heading class="title" id={id}>{title}</Heading>
+  <Heading class="title" id={id}>
+    {
+      titleHtml ? (
+        <Fragment set:html={titleHtml} />
+      ) : (
+        lines.map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))
+      )
+    }
+  </Heading>
 </div>
 
 <style>
@@ -53,6 +69,31 @@ const Heading = level;
     line-height: 1.05;
     letter-spacing: 0.02em;
     text-transform: uppercase;
+  }
+
+  /* Letras recortadas del póster dentro de un título */
+  .title :global(.cut) {
+    display: inline-block;
+    position: relative;
+    isolation: isolate;
+    padding: 0.02em 0.16em;
+    margin: 0 0.02em;
+    color: var(--ink);
+    line-height: 1;
+    transform: rotate(-2.5deg);
+  }
+
+  .title :global(.cut)::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0.04em 0.01em;
+    background: var(--pink);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  .title :global(.cut--up) {
+    transform: rotate(2deg);
   }
 
   .center {

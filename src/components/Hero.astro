@@ -2,6 +2,8 @@
 import { site } from '../data/site';
 import CollageDecor from './CollageDecor.astro';
 import RansomHeadline from './RansomHeadline.astro';
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <header class="hero">
@@ -12,14 +14,26 @@ import RansomHeadline from './RansomHeadline.astro';
     <a href={`mailto:${site.email}`}>{site.bookingLabel}</a>
   </div>
 
-  <span class="band-badge">{site.name}</span>
+  <span class="band-badge">{site.badge}</span>
 
   <h1 class="band-name" aria-label={site.name}>
     <span class="glitch line-1" data-text={site.nameLine1}>{site.nameLine1}</span>
     <span class="glitch line-2" data-text={site.nameLine2}>{site.nameLine2}</span>
   </h1>
 
-  <RansomHeadline />
+  <div class="poster-area">
+    <RansomHeadline />
+    <div class="eye" aria-hidden="true">
+      <img
+        class="eye-frame"
+        src={`${base}eye-frame.webp`}
+        alt=""
+        width="360"
+        height="327"
+        decoding="async"
+      />
+    </div>
+  </div>
 
   <p class="tagline">{site.tagline}</p>
 
@@ -117,15 +131,65 @@ import RansomHeadline from './RansomHeadline.astro';
     animation: wobble 5.5s ease-in-out infinite;
   }
 
+  /* Cinta de papel con el aviso del álbum, encima del logotipo */
   .band-badge {
     position: relative;
     z-index: 1;
     display: inline-block;
-    margin-bottom: 4px;
-    font-family: var(--font-type);
-    font-size: 0.8rem;
-    letter-spacing: 0.25em;
+    margin-bottom: 14px;
+    padding: 5px 12px;
+    background: #efe7d3;
+    color: var(--ink);
+    border: 1px solid #b9ae99;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.65);
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
     text-transform: uppercase;
+    transform: rotate(-1deg);
+  }
+
+  /* Zona del póster: ancla el ojo recortado a la esquina del cuadro */
+  .poster-area {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .eye {
+    position: absolute;
+    z-index: 3;
+    top: -66px;
+    right: -6px;
+    width: 104px;
+    transform: rotate(9deg);
+    pointer-events: auto;
+  }
+
+  .eye-frame {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.9));
+    transition:
+      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+      filter 0.28s ease;
+  }
+
+  .eye:hover .eye-frame {
+    transform: rotate(-7deg) scale(1.14);
+    filter:
+      drop-shadow(-6px 2px 0 var(--pink))
+      drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.85));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eye-frame {
+      transition: none;
+    }
   }
 
   .band-name {
@@ -276,6 +340,13 @@ import RansomHeadline from './RansomHeadline.astro';
     .hero-ctas .btn {
       width: 100%;
       max-width: 320px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    /* En móvil el ojo taparía el póster: se oculta (es decorativo) */
+    .eye {
+      display: none;
     }
   }
 

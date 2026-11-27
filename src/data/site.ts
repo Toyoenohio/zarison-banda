@@ -14,6 +14,8 @@ export interface SiteConfig {
   description: string;
   metaLeft: string;
   bookingLabel: string;
+  /** Línea pequeña sobre el nombre del hero */
+  badge: string;
   sticker: string;
   album: string;
   tagline: string;
@@ -24,6 +26,14 @@ export interface SiteConfig {
   ctaSecondary: { label: string; url: string };
   instagram: { handle: string; url: string };
   ticker: string[];
+  bio: {
+    kicker: string;
+    tape: string;
+    text: string;
+    /** [ciudad, género] */
+    tags: [string, string];
+    hand: string;
+  };
   headline: { lines: HeadlineToken[][] };
 }
 
@@ -39,6 +49,7 @@ export const site: SiteConfig = {
 
   metaLeft: 'NUEVO ROCK CHILENO ★ TOUR 2027 (ENSAYANDO)',
   bookingLabel: 'BOOKING / ONE-SHEET',
+  badge: 'NUEVO ÁLBUM DISPONIBLE · SANTIAGO',
   sticker: 'NUEVO DISCO “PARTIR DE ZERO”',
   album: 'PARTIR DE ZERO',
 
@@ -51,6 +62,14 @@ export const site: SiteConfig = {
   ctaPrimary: { label: 'ESCUCHAR PARTIR DE ZERO', url: 'https://spotify.com' },
   ctaSecondary: { label: 'VER FECHAS', url: '#gira' },
   instagram: { handle: '@zarisonband', url: 'https://instagram.com/zarisonband' },
+
+  bio: {
+    kicker: '¿Y ESTOS QUIÉNES MIERDA SON?',
+    tape: '★ QUIÉN ES ZARISON ★',
+    text: 'Zarison es una banda de rock alternativo chileno de Santiago, Chile. Su sonido cruza garage rock e indie, con guitarras al frente y una saludable desconfianza hacia las fórmulas. Partir de Zero, su nuevo álbum, condensa esa búsqueda en un disco conceptual hecho para decir las cosas a su manera, aunque al algoritmo le dé lo mismo.',
+    tags: ['SANTIAGO · CL', 'ROCK ALTERNATIVO / GARAGE / INDIE'],
+    hand: 'stickers/hand.webp',
+  },
 
   /* La estrella separadora la añade el componente Ticker. */
   ticker: [

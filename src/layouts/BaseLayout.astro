@@ -46,8 +46,50 @@ const jsonLd = buildJsonLd(pageUrl);
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="cursor-glow" aria-hidden="true"></div>
     <main id="contenido">
       <slot />
     </main>
+
+    <script>
+      /**
+       * Destello rosa que sigue al ratón por toda la página.
+       * Solo con puntero fino (no en táctil) y sin animación si se pide.
+       */
+      const glow = document.querySelector<HTMLElement>('.cursor-glow');
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      if (glow) {
+        if (!finePointer.matches || reduced.matches) {
+          glow.hidden = true;
+        } else {
+          let x = window.innerWidth / 2;
+          let y = window.innerHeight / 3;
+          let frame = 0;
+
+          const paint = () => {
+            frame = 0;
+            glow.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+          };
+
+          window.addEventListener(
+            'pointermove',
+            (event) => {
+              x = event.clientX;
+              y = event.clientY;
+              if (!frame) frame = requestAnimationFrame(paint);
+            },
+            { passive: true },
+          );
+
+          reduced.addEventListener('change', () => {
+            glow.hidden = reduced.matches;
+          });
+
+          paint();
+        }
+      }
+    </script>
   </body>
 </html>

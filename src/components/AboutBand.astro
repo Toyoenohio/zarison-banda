@@ -1,0 +1,120 @@
+---
+import { site } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+
+const base = import.meta.env.BASE_URL;
+const { bio } = site;
+
+/** Título con letras recortadas; el salto de línea es el del diseño. */
+const titleHtml =
+  '<span class="cut">Z</span>ARISON, POR SI LA ' +
+  '<span class="cut">I</span>A<br />O <span class="cut">G</span>OOGLE PREGUNTA';
+---
+
+<section id="bio" aria-labelledby="bio-titulo">
+  <div class="bio-inner">
+    <div class="hand" aria-hidden="true">
+      <img src={`${base}${bio.hand}`} alt="" width="260" height="760" loading="lazy" decoding="async" />
+    </div>
+
+    <SectionHeading
+      id="bio-titulo"
+      index="01"
+      label={bio.kicker}
+      title="ZARISON, POR SI LA IA O GOOGLE PREGUNTA"
+      titleHtml={titleHtml}
+    />
+
+    <div class="card">
+      <span class="tape">{bio.tape}</span>
+      <p class="text">{bio.text}</p>
+      <div class="stamp">
+        <span class="tag">{bio.tags[0]}</span>
+        <span>{bio.tags[1]}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bio-inner {
+    position: relative;
+  }
+
+  /* La mano se pega al borde izquierdo de la columna, como en el cartel */
+  .hand {
+    display: none;
+    position: absolute;
+    right: calc(100% + 6px);
+    top: 52px;
+    width: 140px;
+    transform: rotate(-8deg);
+    filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 0.85));
+    pointer-events: none;
+  }
+
+  .hand img {
+    width: 100%;
+    height: auto;
+  }
+
+  .card {
+    position: relative;
+    margin-top: 26px;
+    padding: clamp(22px, 4vw, 34px);
+    background: #141211;
+    border: 1px solid rgba(244, 237, 226, 0.14);
+    box-shadow: 8px 8px 0 #000;
+  }
+
+  .tape {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1.4deg);
+    padding: 3px 12px;
+    background: #efe7d3;
+    color: var(--ink);
+    border: 1px solid #b9ae99;
+    font-family: var(--font-type);
+    font-size: 0.66rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .text {
+    font-size: clamp(0.9rem, 2.1vw, 1rem);
+    line-height: 1.72;
+    color: #e2d5c2;
+  }
+
+  .stamp {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(244, 237, 226, 0.18);
+    font-family: var(--font-type);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8a7f74;
+  }
+
+  .stamp .tag {
+    padding: 2px 7px;
+    background: var(--pink);
+    color: var(--ink);
+    box-shadow: 2px 2px 0 #000;
+  }
+
+  @media (min-width: 1024px) {
+    .hand {
+      display: block;
+    }
+  }
+</style>

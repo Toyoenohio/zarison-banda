@@ -36,6 +36,10 @@ html {
 }
 
 body {
+  /* Crea contexto de apilamiento: el destello (z-index -1) queda sobre el
+     fondo de puntos pero por debajo del contenido. */
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
   background-color: var(--bg);
   color: var(--paper);
@@ -58,6 +62,25 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 999;
+}
+
+/* Destello rosa que sigue al ratón (lo mueve un script de BaseLayout) */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 620px;
+  height: 620px;
+  margin: -310px 0 0 -310px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 90, 0.18) 0%,
+    rgba(255, 0, 90, 0.08) 38%,
+    transparent 68%
+  );
+  pointer-events: none;
+  will-change: transform;
 }
 
 a {

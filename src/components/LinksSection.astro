@@ -5,7 +5,12 @@ import SectionHeading from './SectionHeading.astro';
 ---
 
 <section id="enlaces" aria-labelledby="enlaces-titulo">
-  <SectionHeading id="enlaces-titulo" index="01" label="ESCUCHAR & SEGUIR" title="DALE AL PLAY" />
+  <SectionHeading
+    id="enlaces-titulo"
+    index="02"
+    label="ESCUCHA Y SÍGUENOS (SI QUERÍ)"
+    title={'ESCUCHA ZARISON' + '\n' + 'EN TODAS LAS PLATAFORMAS'}
+  />
   <div class="links">
     {links.map((link, i) => <FlyerLink {...link} tilt={i % 2 === 0 ? -0.6 : 0.7} />)}
   </div>
