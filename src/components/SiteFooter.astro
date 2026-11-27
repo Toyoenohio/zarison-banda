@@ -7,15 +7,22 @@ const base = import.meta.env.BASE_URL;
 
 <footer>
   <p class="legal">© {year} {site.name} — TODOS LOS DERECHOS RESERVADOS.</p>
-  <img
+  <a
     class="signature"
-    src={`${base}firma-sobrenombre.svg`}
-    alt={`Firma de ${site.name}`}
-    width="252"
-    height="19"
-    loading="lazy"
-    decoding="async"
-  />
+    href="https://sobrenombre.cl"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Sitio de sobrenombre"
+  >
+    <img
+      src={`${base}firma-sobrenombre.svg`}
+      alt={`Firma de ${site.name}`}
+      width="252"
+      height="19"
+      loading="lazy"
+      decoding="async"
+    />
+  </a>
 </footer>
 
 <style>
@@ -38,5 +45,20 @@ const base = import.meta.env.BASE_URL;
     height: auto;
     margin: 14px auto 0;
     opacity: 0.85;
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  .signature img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .signature:hover,
+  .signature:focus-visible {
+    opacity: 1;
+    transform: translateY(-1px);
   }
 </style>

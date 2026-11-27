@@ -1,14 +1,11 @@
 ---
 import { site } from '../data/site';
-import CollageDecor from './CollageDecor.astro';
 import RansomHeadline from './RansomHeadline.astro';
 
 const base = import.meta.env.BASE_URL;
 ---
 
 <header class="hero">
-  <CollageDecor />
-
   <div class="hero-top">
     <span>{site.metaLeft}</span>
     <a href={`mailto:${site.email}`}>{site.bookingLabel}</a>
